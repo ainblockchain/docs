@@ -28,10 +28,10 @@ Chain ID must be set to 1 to use [ain-js](https://github.com/ainblockchain/ain-j
 
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
 
 // To use the Mainnet, you need to initialize as follows:
-// const ain = new Ain('https://mainnet-api.ainetwork.ai', null, 1);
+// const ain = new Ain('https://mainnet-api.ainetwork.ai', 'wss://mainnet-event.ainetwork.ai', 1);
 ```
 
 {% endcode %}
@@ -44,7 +44,7 @@ ain-js can create accounts for you. Just specify the number of accounts you want
 
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
 
 // Create 1 new account
 const accounts = ain.wallet.create(1);
@@ -83,7 +83,7 @@ You can transfer the AIN you received from Step 4 with a `transfer()` function. 
 
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
 
 // Copy and paste private_key from Step 3
 const private_key = 'COPY-AND-PASTE-PRIVATE-KEY';
@@ -125,7 +125,7 @@ Call `getNonce()` method to get the current nonce of your address and make the s
 
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
 
 // Create 1 new account
 const accounts = ain.wallet.create(1);
@@ -181,7 +181,7 @@ Setting a value at the path `/manage_app/${appName}/create/${key}` will call the
 
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
 
 // Import the account you've created in Step 3.
 ain.wallet.addAndSetDefaultAccount(YOUR_PRIVATE_KEY);
@@ -220,7 +220,7 @@ You can check the owner setting of the app's path to see if the app was created 
 
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
 
 // Import the account you've created in Step 3.
 ain.wallet.addAndSetDefaultAccount(YOUR_PRIVATE_KEY);
@@ -283,7 +283,7 @@ Staking is important for securing the capacity needed to write data to the block
 
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
 
 // Import the account you've created in Step 3.
 ain.wallet.addAndSetDefaultAccount(YOUR_PRIVATE_KEY);
@@ -325,7 +325,7 @@ To make the app public (anyone can come and write data to it), you need to chang
 
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
 
 // Import the account you've created in Step 3.
 ain.wallet.addAndSetDefaultAccount(YOUR_PRIVATE_KEY);
@@ -422,7 +422,7 @@ You can register an event listener by setting a function config to a specific pa
 
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
 
 // Import the account you've created in Step 3.
 ain.wallet.addAndSetDefaultAccount(YOUR_PRIVATE_KEY);
@@ -535,7 +535,7 @@ Everything is set! Now, you can write values with the `setValue` function.
 
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
 
 // Import the account you've created in Step 3.
 ain.wallet.addAndSetDefaultAccount(YOUR_PRIVATE_KEY);
@@ -644,7 +644,7 @@ Check the written value with the `getValue` function.
 
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
 
 // Import the account you've created in Step 3.
 ain.wallet.addAndSetDefaultAccount(YOUR_PRIVATE_KEY);
