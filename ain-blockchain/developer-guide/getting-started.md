@@ -1,50 +1,54 @@
 ---
 description: >-
-  An example of how to interact with AIN Blockchain using ain-js. Read on and
-  get 100 AIN!
+  Welcome to the AIN Blockchain Quick Start Guide!
+  This hands-on guide will introduce you to the core concepts for building on the AIN blockchain.
+  By the end of this guide, you'll learn how to build a blockchain app that chats with a bot and earn 100 AIN!
 ---
 
 # Quick Start
 
-Before following this guide, you should have a Node.js project set up.
+## Step 1. Install SDK
 
-## Step 1. Install ain-js
-
-[ain-js](https://github.com/ainblockchain/ain-js) is a JavaScript SDK that can be used to send requests to and get responses from the AIN blockchain through its JSON RPC API. It's published on the npm registry and can be easily installed with the following command.
+To interact with the blockchain in server-side JavaScript environments like Node.js, you can use the official [blockchain SDK for JavaScript or TypeScript](https://github.com/ainblockchain/ain-js). Get started by installing the SDK using npm or your preferred package manager:
 
 ```
-# In your project directory
-npm init
 npm install @ainblockchain/ain-js
 ```
 
-## Step 2. Connect to a test node
+## Step 2. Connect to blockchain
 
-The AI Network Dev Team is currently exposing a public Testnet node at [https://testnet-api.ainetwork.ai](https://testnet-api.ainetwork.ai). In the future, there will be more nodes to connect to.
+### Public RPC endpoints
 
-Chain ID must be set to 1 to use [ain-js](https://github.com/ainblockchain/ain-js) on the Mainnet. (0: Testnet, 1: Mainnet)
+The AI Network provides public RPC endpoints for blockchain interaction on both testnet and mainnet.  
+Use testnet to debug and test performance before deploying to mainnet. To use the [SDK](https://github.com/ainblockchain/ain-js) on mainnet, set the [chain ID](https://docs.ainetwork.ai/ain-blockchain/ai-network-design/network-id-and-chain-id) to 1 (0: Testnet, 1: Mainnet)
 
-{% code title="transfer.js" %}
+| Network | RPC endpoint                     | Event handler endpoint           | Chain ID |
+| ------- | -------------------------------- | -------------------------------- | -------- |
+| Testnet | https://testnet-api.ainetwork.ai | wss://testnet-event.ainetwork.ai | 0        |
+| Mainnet | https://mainnet-api.ainetwork.ai | wss://mainnet-event.ainetwork.ai | 1        |
+
+{% code title="create_account.js" %}
 
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
 
-// To use the Mainnet, you need to initialize as follows:
-// const ain = new Ain('https://mainnet-api.ainetwork.ai', 'wss://mainnet-event.ainetwork.ai', 1);
+const ain = new Ain('https://testnet-api.ainetwork.ai');
+
+// To use mainnet:
+// const ain = new Ain('https://mainnet-api.ainetwork.ai');
 ```
 
 {% endcode %}
 
 ## Step 3. Create an account
 
-ain-js can create accounts for you. Just specify the number of accounts you want to create.
+ain-js can create accounts for you. Just specify the number of accounts you want to create. Need to backup your private key!
 
-{% code title="transfer.js" %}
+{% code title="create_account.js" %}
 
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
 
 // Create 1 new account
 const accounts = ain.wallet.create(1);
@@ -53,7 +57,7 @@ const myAddress = accounts[0];
 // Set the new account (myAddress) as the default account
 ain.wallet.setDefaultAccount(myAddress);
 
-// Print defaultAccount (Need to backup your private key)
+// Print defaultAccount
 console.log(ain.wallet.defaultAccount);
 // Example:
 // {
@@ -67,11 +71,14 @@ console.log(ain.wallet.defaultAccount);
 
 ## Step 4. Get AIN (for free!)
 
-We have a faucet site that gives you 10 AIN per day (valid only on the Testnet). Follow this link [https://faucet.ainetwork.ai/](http://faucet.ainetwork.ai/) and enter `myAddress` that you created from Step 3 at the input field. Click "Request for testing" and voilà! Now you have 10 AIN in your wallet, just like that.&#x20;
+We have a faucet site that gives you 100 AIN per day (valid only on the Testnet). Follow this link [https://faucet.ainetwork.ai/](http://faucet.ainetwork.ai/) and enter `myAddress` that you created from Step 3 at the input field. Click "Request for testing" and voilà! Now you have 100 AIN in your wallet, just like that.&#x20;
 
 ![The AI Network Faucet site.](<../../.gitbook/assets/Screen Shot 2019-12-16 at 10.13.46 PM.png>)
 
-You can check out the details of the transaction that transferred the fund from our reserve to your address by copying the transaction hash (the purple string that starts with 0x...) at the bottom of the page and searching it on AI Network's block explorer site [https://insight.ainetwork.ai/](https://insight.ainetwork.ai/).
+You can check out the details of the transaction that transferred the fund from our reserve to your address by copying the transaction hash (the purple string that starts with 0x...) at the bottom of the page and searching it on AI Network's block explorer site.&#x20;
+
+- Testnet: [https://testnet-insight.ainetwork.ai](https://testnet-insight.ainetwork.ai/)
+- Mainnet: [https://insight.ainetwork.ai](https://insight.ainetwork.ai/)
 
 ![](<../../.gitbook/assets/Screen Shot 2019-12-16 at 10.15.42 PM.png>)
 
