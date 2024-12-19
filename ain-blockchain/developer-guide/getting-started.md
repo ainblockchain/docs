@@ -10,7 +10,7 @@ Before following this guide, you should have a Node.js project set up.
 
 ## Step 1. Install ain-js
 
-[ain-js](broken-reference) is a JavaScript SDK that can be used to send requests to and get responses from the AIN blockchain through its JSON RPC API. It's published on the npm registry and can be easily installed with the following command.
+[ain-js](https://github.com/ainblockchain/ain-js) is a JavaScript SDK that can be used to send requests to and get responses from the AIN blockchain through its JSON RPC API. It's published on the npm registry and can be easily installed with the following command.
 
 ```
 # In your project directory
@@ -22,13 +22,18 @@ npm install @ainblockchain/ain-js
 
 The AI Network Dev Team is currently exposing a public Testnet node at [https://testnet-api.ainetwork.ai](https://testnet-api.ainetwork.ai). In the future, there will be more nodes to connect to.
 
-Chain ID must be set to 1 to use [ain-js](broken-reference) on the Mainnet. (0: Testnet, 1: Mainnet)
+Chain ID must be set to 1 to use [ain-js](https://github.com/ainblockchain/ain-js) on the Mainnet. (0: Testnet, 1: Mainnet)
 
 {% code title="transfer.js" %}
+
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
+
+// To use the Mainnet, you need to initialize as follows:
+// const ain = new Ain('https://mainnet-api.ainetwork.ai', null, 1);
 ```
+
 {% endcode %}
 
 ## Step 3. Create an account
@@ -36,9 +41,10 @@ const ain = new Ain('https://testnet-api.ainetwork.ai', 0);
 ain-js can create accounts for you. Just specify the number of accounts you want to create.
 
 {% code title="transfer.js" %}
+
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
 
 // Create 1 new account
 const accounts = ain.wallet.create(1);
@@ -56,6 +62,7 @@ console.log(ain.wallet.defaultAccount);
 //   public_key: '...'
 // }
 ```
+
 {% endcode %}
 
 ## Step 4. Get AIN (for free!)
@@ -73,9 +80,10 @@ You can check out the details of the transaction that transferred the fund from 
 You can transfer the AIN you received from Step 4 with a `transfer()` function. You need to specify the to (the address you're transferring the AIN to) and the value (how much AIN you're transferring). 'from' is optional if you've set the default account. If you have not, you should set 'from' as the address you're transferring AIN from.
 
 {% code title="transfer.js" %}
+
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
 
 // Copy and paste private_key from Step 3
 const private_key = 'COPY-AND-PASTE-PRIVATE-KEY';
@@ -91,11 +99,12 @@ console.log(ain.wallet.defaultAccount);
 // }
 
 // Transfer 1 AIN to ADDRESS_TO_SEND_AIN_TO
-ain.wallet.transfer({
-  from: myAddress, // Optional (defaultAccount will be used if omitted)
-  to: '0x99bBa0051DDdf7b69972602512661915fdD8eE89', // or your address
-  value: 1
-})
+ain.wallet
+  .transfer({
+    from: myAddress, // Optional (defaultAccount will be used if omitted)
+    to: '0x99bBa0051DDdf7b69972602512661915fdD8eE89', // or your address
+    value: 1,
+  })
   .then((res) => {
     // The returned value will be either
     // { result, tx_hash } or { code, message, tx_hash },
@@ -103,6 +112,7 @@ ain.wallet.transfer({
     console.log(JSON.stringify(res));
   });
 ```
+
 {% endcode %}
 
 ## Step 6. (Optional) Setting the nonce of your transaction
@@ -112,9 +122,10 @@ Optionally, you can set the nonce of your transaction. In Step 4, we didn't set 
 Call `getNonce()` method to get the current nonce of your address and make the same transfer call as in Step 4, but with a nonce that's incremented by 1 from the value you just got from `getNonce()`.
 
 {% code title="transfer.js" %}
+
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
 
 // Create 1 new account
 const accounts = ain.wallet.create(1);
@@ -133,11 +144,12 @@ console.log(ain.wallet.defaultAccount);
 // }
 
 // Transfer 1 AIN to ADDRESS_TO_SEND_AIN_TO
-ain.wallet.transfer({
-  from: myAddress, // Optional (defaultAccount will be used if omitted)
-  to: ADDRESS_TO_SEND_AIN_TO, // e.g. 0x08Aed7AF9354435c38d52143EE50ac839D20696b
-  value: 1
-})
+ain.wallet
+  .transfer({
+    from: myAddress, // Optional (defaultAccount will be used if omitted)
+    to: ADDRESS_TO_SEND_AIN_TO, // e.g. 0x08Aed7AF9354435c38d52143EE50ac839D20696b
+    value: 1,
+  })
   .then((res) => {
     // The returned value will be either
     // { result, tx_hash } or { code, message, tx_hash },
@@ -146,20 +158,18 @@ ain.wallet.transfer({
   });
 
 // (Optional exercise) Send another transfer transaction with a nonce specified
-ain.getNonce({ address: myAddress })
-  .then(async (nonce) => {
-    const res = await ain.wallet.transfer({
-      from: myAddress,
-      to: ADDRESS_TO_SEND_AIN_TO,
-      value: 1,
-      nonce: nonce + 1
-    });
-    console.log(JSON.stringify(res));
+ain.wallet.getNonce({ address: myAddress }).then(async (nonce) => {
+  const res = await ain.wallet.transfer({
+    from: myAddress,
+    to: ADDRESS_TO_SEND_AIN_TO,
+    value: 1,
+    nonce: nonce + 1,
   });
+  console.log(JSON.stringify(res));
+});
 ```
+
 {% endcode %}
-
-
 
 ## Step 7. Create your own app
 
@@ -168,9 +178,10 @@ You can create your own app by setting a value to `/manage_app/${appName}/create
 Setting a value at the path `/manage_app/${appName}/create/${key}` will call the native function `_createApp` and the permissions ( `owner` and `rule` ) are automatically set.
 
 {% code title="createApp.js" %}
+
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
 
 // Import the account you've created in Step 3.
 ain.wallet.addAndSetDefaultAccount(YOUR_PRIVATE_KEY);
@@ -190,9 +201,9 @@ ain.db
       },
       service: {
         staking: {
-          lockup_duration: 604800000 // 7 days in ms
-        }
-      }
+          lockup_duration: 604800000, // 7 days in ms
+        },
+      },
     },
     nonce: -1,
   })
@@ -200,14 +211,16 @@ ain.db
     console.log(`res: ${JSON.stringify(res)}`);
   });
 ```
+
 {% endcode %}
 
 You can check the owner setting of the app's path to see if the app was created successfully. Use the `getOwner` function to check.
 
 {% code title="createApp.js" %}
+
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
 
 // Import the account you've created in Step 3.
 ain.wallet.addAndSetDefaultAccount(YOUR_PRIVATE_KEY);
@@ -218,25 +231,29 @@ const appPath = `/apps/${appName}`;
 
 // Create an app at /apps/${appName}. With the admin config below,
 // only 'myAddress' will have owner & write permissions at /apps/${appName}.
-ain.db.ref(`/manage_app/${appName}/create/${Date.now()}`).setValue({
-  value: {
-    admin: {
-      [myAddress]: true,
+ain.db
+  .ref(`/manage_app/${appName}/create/${Date.now()}`)
+  .setValue({
+    value: {
+      admin: {
+        [myAddress]: true,
+      },
+      service: {
+        staking: {
+          lockup_duration: 604800000, // 7 days in ms
+        },
+      },
     },
-    service: {
-      staking: {
-        lockup_duration: 604800000 // 7 days in ms
-      }
-    }
-  },
-  nonce: -1,
-})
+    nonce: -1,
+  })
   .then((res) => {
-   console.log(`res: ${JSON.stringify(res)}`);
+    console.log(`res: ${JSON.stringify(res)}`);
   });
 
 // Check the owner permissions have been set properly.
-ain.db.ref(appPath).getOwner()
+ain.db
+  .ref(appPath)
+  .getOwner()
   .then((res) => {
     console.log(JSON.stringify(res, null, 2));
     /*
@@ -255,9 +272,40 @@ ain.db.ref(appPath).getOwner()
     */
   });
 ```
+
 {% endcode %}
 
-## Step 8. Make your app public
+## Step 8. Stake AIN to your app
+
+Staking is important for securing the capacity needed to write data to the blockchain. The amount of data you can record is proportional to the amount of AIN you have staked. Below is a simple code example on how to set up staking.
+
+{% code title="createApp.js" %}
+
+```javascript
+const Ain = require('@ainblockchain/ain-js').default;
+const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
+
+// Import the account you've created in Step 3.
+ain.wallet.addAndSetDefaultAccount(YOUR_PRIVATE_KEY);
+const myAddress = ain.wallet.defaultAccount.address;
+
+const appName = 'my_bot'; // Use your own app name
+const appPath = `/apps/${appName}`;
+
+ain.db
+  .ref(`/staking/${appName}/${myAddress}/0/stake/${Date.now()}/value`)
+  .setValue({
+    value: 10,
+    nonce: -1,
+  })
+  .then((res) => {
+    console.log(`res: ${JSON.stringify(res)}`);
+  });
+```
+
+{% endcode %}
+
+## Step 9. Make your app public
 
 If you want to use the app by yourself, you can skip this step. However, if you'd like to allow someone else (i.e. echo bot) to write at your app's paths, you need to modify the rules.
 
@@ -274,9 +322,10 @@ Initially, the write rule is set as `auth.addr === '${myAddress}'` so only you c
 To make the app public (anyone can come and write data to it), you need to change the write rule as `true` . You can change the write rule by setting a rule with the `setRule` function.
 
 {% code title="createApp.js" %}
+
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
 
 // Import the account you've created in Step 3.
 ain.wallet.addAndSetDefaultAccount(YOUR_PRIVATE_KEY);
@@ -287,25 +336,29 @@ const appPath = `/apps/${appName}`;
 
 // Create an app at /apps/${appName}. With the admin config below,
 // only 'myAddress' will have owner & write permissions at /apps/${appName}.
-ain.db.ref(`/manage_app/${appName}/create/${Date.now()}`).setValue({
-  value: {
-    admin: {
-      [myAddress]: true,
+ain.db
+  .ref(`/manage_app/${appName}/create/${Date.now()}`)
+  .setValue({
+    value: {
+      admin: {
+        [myAddress]: true,
+      },
+      service: {
+        staking: {
+          lockup_duration: 604800000, // 7 days in ms
+        },
+      },
     },
-    service: {
-      staking: {
-        lockup_duration: 604800000 // 7 days in ms
-      }
-    }
-  },
-  nonce: -1,
-})
+    nonce: -1,
+  })
   .then((res) => {
-   console.log(`res: ${JSON.stringify(res)}`);
+    console.log(`res: ${JSON.stringify(res)}`);
   });
 
 // Check the owner permissions have been set properly.
-ain.db.ref(appPath).getOwner()
+ain.db
+  .ref(appPath)
+  .getOwner()
   .then((res) => {
     console.log(JSON.stringify(res, null, 2));
     /*
@@ -325,18 +378,21 @@ ain.db.ref(appPath).getOwner()
   });
 
 // Set write rules.
-ain.db.ref(appPath).setRule({
-  value: {
-    '.rule': {
-      'write': true, // Anyone can write values at the appPath.
+ain.db
+  .ref(appPath)
+  .setRule({
+    value: {
+      '.rule': {
+        write: true, // Anyone can write values at the appPath.
+      },
     },
-  },
-  nonce: -1,
-})
+    nonce: -1,
+  })
   .then((res) => {
     console.log(JSON.stringify(res, null, 2));
   });
 ```
+
 {% endcode %}
 
 Now, anyone can use your app! You can check the rule with `getRule` function.&#x20;
@@ -349,23 +405,24 @@ If you are concerned about security, as you should, you can specify more specifi
 ain.db.ref('/apps/my_app/restricted/area/for/$address').setRule({
   value: {
     '.rule': {
-      'write': `auth.addr === '$address'`,
+      write: `auth.addr === '$address'`,
     },
   },
   nonce: -1,
-})
+});
 ```
 
-you can restrict the person who can write at /apps/my\_app/restricted/area/for/0xabcd...1234 to only someone with the private key of 0xabcd...1234. Notice how I used wild cards!
+you can restrict the person who can write at /apps/my_app/restricted/area/for/0xabcd...1234 to only someone with the private key of 0xabcd...1234. Notice how I used wild cards!
 
-## Step 9. Uses blockchain event push service
+## Step 10. Uses blockchain event push service
 
 You can register an event listener by setting a function config to a specific path.
 
 {% code title="createApp.js" %}
+
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
 
 // Import the account you've created in Step 3.
 ain.wallet.addAndSetDefaultAccount(YOUR_PRIVATE_KEY);
@@ -376,25 +433,29 @@ const appPath = `/apps/${appName}`;
 
 // Create an app at /apps/${appName}. With the admin config below,
 // only 'myAddress' will have owner & write permissions at /apps/${appName}.
-ain.db.ref(`/manage_app/${appName}/create/${Date.now()}`).setValue({
-  value: {
-    admin: {
-      [myAddress]: true,
+ain.db
+  .ref(`/manage_app/${appName}/create/${Date.now()}`)
+  .setValue({
+    value: {
+      admin: {
+        [myAddress]: true,
+      },
+      service: {
+        staking: {
+          lockup_duration: 604800000, // 7 days in ms
+        },
+      },
     },
-    service: {
-      staking: {
-        lockup_duration: 604800000 // 7 days in ms
-      }
-    }
-  },
-  nonce: -1,
-})
+    nonce: -1,
+  })
   .then((res) => {
-   console.log(`res: ${JSON.stringify(res)}`);
+    console.log(`res: ${JSON.stringify(res)}`);
   });
 
 // Check the owner permissions have been set properly.
-ain.db.ref(appPath).getOwner()
+ain.db
+  .ref(appPath)
+  .getOwner()
   .then((res) => {
     console.log(JSON.stringify(res, null, 2));
     /*
@@ -414,36 +475,42 @@ ain.db.ref(appPath).getOwner()
   });
 
 // Set write rules.
-ain.db.ref(appPath).setRule({
-  value: {
-    '.rule': {
-      'write': true, // Anyone can write values at the appPath.
+ain.db
+  .ref(appPath)
+  .setRule({
+    value: {
+      '.rule': {
+        write: true, // Anyone can write values at the appPath.
+      },
     },
-  },
-  nonce: -1,
-})
+    nonce: -1,
+  })
   .then((res) => {
     console.log(JSON.stringify(res, null, 2));
   });
 
 // Set a function to be triggered when writing values at the functionPath.
 const functionPath = `${appPath}/messages/$user_addr/$timestamp/user`; // Wild cards!
-ain.db.ref(functionPath).setFunction({
-  value: {
-    '.function': {
-      'my-bot-trigger': { // Use your own function id
-        function_type: 'REST',
-        function_url: 'http://echo-bot.ainetwork.ai/trigger', // An endpoint to your event listener server
-        function_id: 'my-bot-trigger', // Use your own function id
+ain.db
+  .ref(functionPath)
+  .setFunction({
+    value: {
+      '.function': {
+        'my-bot-trigger': {
+          // Use your own function id
+          function_type: 'REST',
+          function_url: 'http://echo-bot.ainetwork.ai/trigger', // An endpoint to your event listener server
+          function_id: 'my-bot-trigger', // Use your own function id
+        },
       },
     },
-  },
-  nonce: -1,
-})
+    nonce: -1,
+  })
   .then((res) => {
     console.log(JSON.stringify(res, null, 2));
   });
 ```
+
 {% endcode %}
 
 Once registered, a POST request will be sent to the `function_url` , whenever any value is written to `/apps/my_bot/messages/$user_addr/$timestamp/user` path. Since `my-bot-trigger` is a temporary name, please customize it and set it as your own trigger name.
@@ -460,14 +527,15 @@ Below is an example of a triggering value (at .../user) and another value (at ..
 }
 ```
 
-## Step 10. Set values
+## Step 11. Set values
 
 Everything is set! Now, you can write values with the `setValue` function.
 
 {% code title="createApp.js" %}
+
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
 
 // Import the account you've created in Step 3.
 ain.wallet.addAndSetDefaultAccount(YOUR_PRIVATE_KEY);
@@ -478,25 +546,29 @@ const appPath = `/apps/${appName}`;
 
 // Create an app at /apps/${appName}. With the admin config below,
 // only 'myAddress' will have owner & write permissions at /apps/${appName}.
-ain.db.ref(`/manage_app/${appName}/create/${Date.now()}`).setValue({
-  value: {
-    admin: {
-      [myAddress]: true,
+ain.db
+  .ref(`/manage_app/${appName}/create/${Date.now()}`)
+  .setValue({
+    value: {
+      admin: {
+        [myAddress]: true,
+      },
+      service: {
+        staking: {
+          lockup_duration: 604800000, // 7 days in ms
+        },
+      },
     },
-    service: {
-      staking: {
-        lockup_duration: 604800000 // 7 days in ms
-      }
-    }
-  },
-  nonce: -1,
-})
+    nonce: -1,
+  })
   .then((res) => {
-   console.log(`res: ${JSON.stringify(res)}`);
+    console.log(`res: ${JSON.stringify(res)}`);
   });
 
 // Check the owner permissions have been set properly.
-ain.db.ref(appPath).getOwner()
+ain.db
+  .ref(appPath)
+  .getOwner()
   .then((res) => {
     console.log(JSON.stringify(res, null, 2));
     /*
@@ -516,54 +588,63 @@ ain.db.ref(appPath).getOwner()
   });
 
 // Set write rules.
-ain.db.ref(appPath).setRule({
-  value: {
-    '.rule': {
-      'write': true, // Anyone can write values at the appPath.
+ain.db
+  .ref(appPath)
+  .setRule({
+    value: {
+      '.rule': {
+        write: true, // Anyone can write values at the appPath.
+      },
     },
-  },
-  nonce: -1,
-})
+    nonce: -1,
+  })
   .then((res) => {
     console.log(JSON.stringify(res, null, 2));
   });
 
 // Set a function to be triggered when writing values at the functionPath.
 const functionPath = `${appPath}/messages/$user_addr/$timestamp/user`; // Wild cards!
-ain.db.ref(functionPath).setFunction({
-  value: {
-    '.function': {
-      'my-bot-trigger': { // Use your own function id
-        function_type: 'REST',
-        function_url: 'http://echo-bot.ainetwork.ai/trigger', // An endpoint to your event listener server
-        function_id: 'my-bot-trigger', // Use your own function id
+ain.db
+  .ref(functionPath)
+  .setFunction({
+    value: {
+      '.function': {
+        'my-bot-trigger': {
+          // Use your own function id
+          function_type: 'REST',
+          function_url: 'http://echo-bot.ainetwork.ai/trigger', // An endpoint to your event listener server
+          function_id: 'my-bot-trigger', // Use your own function id
+        },
       },
     },
-  },
-  nonce: -1,
-})
+    nonce: -1,
+  })
   .then((res) => {
     console.log(JSON.stringify(res, null, 2));
   });
-  
+
 // Set a value at a path and trigger the previously set function.
 const userMessagePath = `${appPath}/messages/${myAddress}`;
-ain.db.ref(`${userMessagePath}/${Date.now()}/user`).setValue({
-  value: 'Hello!',
-  nonce: -1,
-})
-  .then(res => {
+ain.db
+  .ref(`${userMessagePath}/${Date.now()}/user`)
+  .setValue({
+    value: 'Hello!',
+    nonce: -1,
+  })
+  .then((res) => {
     console.log(JSON.stringify(res, null, 2));
   });
 ```
+
 {% endcode %}
 
 Check the written value with the `getValue` function.
 
 {% code title="createApp.js" %}
+
 ```javascript
 const Ain = require('@ainblockchain/ain-js').default;
-const ain = new Ain('https://testnet-api.ainetwork.ai', 0);
+const ain = new Ain('https://testnet-api.ainetwork.ai', null, 0);
 
 // Import the account you've created in Step 3.
 ain.wallet.addAndSetDefaultAccount(YOUR_PRIVATE_KEY);
@@ -574,25 +655,29 @@ const appPath = `/apps/${appName}`;
 
 // Create an app at /apps/${appName}. With the admin config below,
 // only 'myAddress' will have owner & write permissions at /apps/${appName}.
-ain.db.ref(`/manage_app/${appName}/create/${Date.now()}`).setValue({
-  value: {
-    admin: {
-      [myAddress]: true,
+ain.db
+  .ref(`/manage_app/${appName}/create/${Date.now()}`)
+  .setValue({
+    value: {
+      admin: {
+        [myAddress]: true,
+      },
+      service: {
+        staking: {
+          lockup_duration: 604800000, // 7 days in ms
+        },
+      },
     },
-    service: {
-      staking: {
-        lockup_duration: 604800000 // 7 days in ms
-      }
-    }
-  },
-  nonce: -1,
-})
+    nonce: -1,
+  })
   .then((res) => {
-   console.log(`res: ${JSON.stringify(res)}`);
+    console.log(`res: ${JSON.stringify(res)}`);
   });
 
 // Check the owner permissions have been set properly.
-ain.db.ref(appPath).getOwner()
+ain.db
+  .ref(appPath)
+  .getOwner()
   .then((res) => {
     console.log(JSON.stringify(res, null, 2));
     /*
@@ -612,50 +697,59 @@ ain.db.ref(appPath).getOwner()
   });
 
 // Set write rules.
-ain.db.ref(appPath).setRule({
-  value: {
-    '.rule': {
-      'write': true, // Anyone can write values at the appPath.
+ain.db
+  .ref(appPath)
+  .setRule({
+    value: {
+      '.rule': {
+        write: true, // Anyone can write values at the appPath.
+      },
     },
-  },
-  nonce: -1,
-})
+    nonce: -1,
+  })
   .then((res) => {
     console.log(JSON.stringify(res, null, 2));
   });
 
 // Set a function to be triggered when writing values at the functionPath.
 const functionPath = `${appPath}/messages/$user_addr/$timestamp/user`; // Wild cards!
-ain.db.ref(functionPath).setFunction({
-  value: {
-    '.function': {
-      'my-bot-trigger': { // Use your own function id
-        function_type: 'REST',
-        function_url: 'http://echo-bot.ainetwork.ai/trigger', // An endpoint to your event listener server
-        function_id: 'my-bot-trigger', // Use your own function id
+ain.db
+  .ref(functionPath)
+  .setFunction({
+    value: {
+      '.function': {
+        'my-bot-trigger': {
+          // Use your own function id
+          function_type: 'REST',
+          function_url: 'http://echo-bot.ainetwork.ai/trigger', // An endpoint to your event listener server
+          function_id: 'my-bot-trigger', // Use your own function id
+        },
       },
     },
-  },
-  nonce: -1,
-})
+    nonce: -1,
+  })
   .then((res) => {
     console.log(JSON.stringify(res, null, 2));
   });
-  
+
 // Set a value at a path and trigger the previously set function.
 const userMessagePath = `${appPath}/messages/${myAddress}`;
-ain.db.ref(`${userMessagePath}/${Date.now()}/user`).setValue({
-  value: 'Hello!',
-  nonce: -1,
-})
-  .then(res => {
+ain.db
+  .ref(`${userMessagePath}/${Date.now()}/user`)
+  .setValue({
+    value: 'Hello!',
+    nonce: -1,
+  })
+  .then((res) => {
     console.log(JSON.stringify(res, null, 2));
   });
-  
+
 // Check that the value is set correctly. If the echo bot is alive,
 // it should have written a response to your message.
-ain.db.ref(userMessagePath).getValue()
-  .then(res => {
+ain.db
+  .ref(userMessagePath)
+  .getValue()
+  .then((res) => {
     console.log(JSON.stringify(res, null, 2));
     /*
     {
@@ -667,5 +761,5 @@ ain.db.ref(userMessagePath).getValue()
     */
   });
 ```
-{% endcode %}
 
+{% endcode %}
