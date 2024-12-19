@@ -40,6 +40,7 @@
       * [Project deployer](ain-blockchain/developer-guide/tools/ainize-trigger/project-deployer.md)
       * [Why do we have to use Ainize Trigger?](ain-blockchain/developer-guide/tools/ainize-trigger/why-do-we-have-to-use-ainize-trigger.md)
   * [Token Bridge](ain-blockchain/developer-guide/token-bridge.md)
+  * [Trouble Shooting](ain-blockchain/developer-guide/trouble-shooting.md)
 * [Developer Reference](ain-blockchain/developer-reference/README.md)
   * [Blockchain API](ain-blockchain/developer-reference/core-blockchain-reference/README.md)
     * [JSON RPC API](ain-blockchain/developer-reference/core-blockchain-reference/json-rpc-api.md)
