@@ -290,7 +290,6 @@ ain.wallet.addAndSetDefaultAccount(YOUR_PRIVATE_KEY);
 const myAddress = ain.wallet.defaultAccount.address;
 
 const appName = 'my_bot'; // Use your own app name
-const appPath = `/apps/${appName}`;
 
 ain.db
   .ref(`/staking/${appName}/${myAddress}/0/stake/${Date.now()}/value`)
