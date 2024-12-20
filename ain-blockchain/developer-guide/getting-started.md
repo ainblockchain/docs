@@ -261,7 +261,7 @@ const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
 const appName = 'YOUR_APP_NAME'; // use the app name from Step 5
 const appPath = `/apps/${appName}`;
 
-// Set write rules to allow anyone to write data
+// set write rules to allow anyone to write data
 ain.db
   .ref(appPath)
   .setRule({
@@ -331,8 +331,8 @@ ain.db
       '.function': {
         'my-bot-trigger': {
           function_type: 'REST',
-          function_url: 'http://echo-bot.ainetwork.ai/trigger', // An endpoint to your event listener server
-          function_id: 'my-bot-trigger', // Use your own function id
+          function_url: 'http://echo-bot.ainetwork.ai/trigger', // endpoint to your event listener server
+          function_id: 'my-bot-trigger', // use your own function id
         },
       },
     },
@@ -382,7 +382,7 @@ const ain = new Ain('https://testnet-api.ainetwork.ai');
 // import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
 
-const appName = 'YOUR_APP_NAME'; // Use the app name from Step 5
+const appName = 'YOUR_APP_NAME'; // use the app name from Step 5
 const appPath = `/apps/${appName}`;
 
 const userMessagePath = `${appPath}/messages/${address}`;
@@ -417,7 +417,7 @@ ain.db
     // {
     //   "1631691438245": {
     //     "user": "Hello!",
-    //     "echo-bot": "Did you mean \"Hello!\"?" // Written by the echo bot.
+    //     "echo-bot": "Did you mean \"Hello!\"?" // written by the echo bot.
     //   }
     // }
   });
