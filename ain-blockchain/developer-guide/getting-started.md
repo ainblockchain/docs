@@ -21,7 +21,7 @@ npm install @ainblockchain/ain-js@latest
 The AI Network provides public RPC endpoints for blockchain interaction on both testnet and mainnet.  
 Use testnet to debug and test performance before deploying to mainnet. To use the [SDK](https://github.com/ainblockchain/ain-js) on mainnet, set the [chain ID](https://docs.ainetwork.ai/ain-blockchain/ai-network-design/network-id-and-chain-id) to 1.
 
-| Network | RPC endpoint                     | Event handler endpoint           | Chain ID |
+| Network | RPC Endpoint                     | Event handler Endpoint           | Chain ID |
 | ------- | -------------------------------- | -------------------------------- | -------- |
 | Testnet | https://testnet-api.ainetwork.ai | wss://testnet-event.ainetwork.ai | 0        |
 | Mainnet | https://mainnet-api.ainetwork.ai | wss://mainnet-event.ainetwork.ai | 1        |
@@ -29,15 +29,15 @@ Use testnet to debug and test performance before deploying to mainnet. To use th
 ```js
 const Ain = require('@ainblockchain/ain-js').default;
 
-const ain = new Ain('https://testnet-api.ainetwork.ai');
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
 
 // To use mainnet:
-// const ain = new Ain('https://mainnet-api.ainetwork.ai');
+// const ain = new Ain('https://mainnet-api.ainetwork.ai', 'wss://mainnet-event.ainetwork.ai', 1);
 ```
 
 ## Step 3. Create your wallet
 
-You can create as many accounts as you want, and set the default account. Need to backup your private key!
+You can create multiple accounts and set a default account. However, it’s crucial to **back up your private key** and store it securely. Losing your private key may result in losing access to your account permanently. Take extra precautions to prevent unauthorized access!
 
 {% code title="create_account.js" %}
 
@@ -86,40 +86,30 @@ You can view transaction details by copying the transaction hash (starting with 
 
 👉 [Join the AIN DAO Discord](https://discord.com/invite/aindao)
 
-To move ERC-20 AIN from Ethereum to Native AIN on the AI Network, follow these steps:
-
-1. **ERC-20 AIN** (Ethereum) → Deposited to **AIN DAO Discord** → Converted to **Discord Credits**.
-2. **Discord Credits** → Withdrawn as **Native AIN** (on AI Network).
+To convert **ERC-20 AIN** from Ethereum to **Native AIN** on the AI Network, follow these steps:
 
 #### Step 1: Import $AIN Tokens into MetaMask
 
-1. Open MetaMask and go to “Assets.”
-2. Click “Import Token” and select “Custom Token.”
-3. Use the contract address: `0x3a810ff7211b40c4fa76205a14efe161615d0385`
-4. Click “Add Custom Token” to see your $AIN balance.
+1. Open MetaMask and go to “Assets”.
+2. Click “Import Token” → “Custom Token”.
+3. Use this contract address: `0x3a810ff7211b40c4fa76205a14efe161615d0385`
+4. Click “Add Custom Token” to view your $AIN balance.
 
-#### Step 2: Deposit $AIN to AIN Credits
+#### Step 2: Deposit $AIN to AIN DAO Discord
 
-1. Type `/ain deposit` in the AIN DAO Discord to receive a unique deposit address (e.g. start with `0x...`).
+1. In Discord, type `/ain deposit` to receive your unique deposit address (start with `0x...`).
 2. Copy the deposit address.
 3. Open your ETH wallet and locate the $AIN token.
-4. Click “Send,” paste the copied address, and enter the amount of $AIN to deposit.
-5. Confirm the transaction in your wallet.
-6. In Discord, type `/ain balance` to confirm your deposit.  
-   **Note**: Deposits under 500 $AIN will not be paid out until the total deposited amount exceeds 500 $AIN.
+4. Click “Send,” paste the deposit address, and input the amount to deposit (Minimum: 500 AIN).
+5. Confirm the transaction.
+6. In Discord, type `/ain balance` to confirm your balance.
 
 #### Step 3: Withdraw AIN Credits to Native AIN
 
 1. Use the `/ain withdraw` command in Discord.
 2. Enter your AI Network wallet address.
-3. Specify the amount of AIN credits to withdraw (minimum: 500 AIN).
+3. Specify the withdrawal amount (Minimum: 500 AIN).
 4. Confirm the transaction.
-
-#### Summary
-
-- **Deposit**: Move your ERC-20 AIN from Ethereum into Discord to convert them into Discord Credits.
-- **Withdraw**: Convert Discord Credits into Native AIN and transfer them to your AI Network wallet.
-
 
 ## Step 5. Create your app
 
