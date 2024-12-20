@@ -6,6 +6,8 @@ description: >-
 
 # Quick Start
 
+All code examples are in this [GitHub repository](https://github.com/ainblockchain/quickstart). Clone or refer for hands-on practice!
+
 ## Step 1. Install SDK
 
 To interact with the blockchain in server-side JavaScript environments like Node.js, you can use the official [blockchain SDK for JavaScript or TypeScript](https://github.com/ainblockchain/ain-js). Get started by installing the SDK using npm or your preferred package manager:
@@ -46,17 +48,17 @@ const Ain = require('@ainblockchain/ain-js').default;
 
 const ain = new Ain('https://testnet-api.ainetwork.ai');
 
-// Create new account
+// create new account
 const accounts = ain.wallet.create(1);
 const address = accounts[0];
 
-// Set the new account as the default account
+// set the new account as the default account
 ain.wallet.setDefaultAccount(address);
 
-// Print the default account
+// print the default account
 console.log(ain.wallet.defaultAccount);
 
-// Example output:
+// example output:
 // {
 //   address: '0x09A0d53FDf1c36A131938eb379b98910e55EEfe1',
 //   private_key: '...',
@@ -124,14 +126,14 @@ const Ain = require('@ainblockchain/ain-js').default;
 
 const ain = new Ain('https://testnet-api.ainetwork.ai');
 
-// Import the account using private key from Step 3
+// import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
 
-const appName = 'YOUR_APP_NAME'; // Use unique app name
+const appName = 'YOUR_APP_NAME'; // define unique app name
 const appPath = `/apps/${appName}`;
 
-// Create an app at /apps/${appName}
-// The admin config below grants 'address' both owner and write permissions for the app
+// create an app at /apps/${appName}
+// the admin config below grants 'address' both owner and write permissions for the app
 ain.db
   .ref(`/manage_app/${appName}/create/${Date.now()}`)
   .setValue({
@@ -149,11 +151,11 @@ ain.db
   })
   .then((res) => {
     console.log('tx_hash:', res.tx_hash);
-    console.log('code:', res.code);
     // 0: success, if not 0, check the error code:
     // https://github.com/ainblockchain/ain-blockchain/blob/master/common/result-code.js
+    console.log('code:', res.result.code);
 
-    // Example output:
+    // example output:
     // tx_hash: 0x...
     // code: 0
   });
@@ -166,14 +168,14 @@ You can use the `getOwner` function to check app's owner permissions and confirm
 {% code title="create_app.js" %}
 
 ```javascript
-// Check the owner permissions have been set properly
+// check the owner permissions have been set properly
 ain.db
   .ref(appPath)
   .getOwner()
   .then((res) => {
     console.log(JSON.stringify(res, null, 2));
 
-    // Example output:
+    // example output:
     // {
     //   ".owner": {
     //     "owners": {
@@ -203,10 +205,10 @@ const Ain = require('@ainblockchain/ain-js').default;
 
 const ain = new Ain('https://testnet-api.ainetwork.ai');
 
-// Import the account using private key from Step 3
+// import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
 
-const appName = 'YOUR_APP_NAME'; // Use the app name from Step 5
+const appName = 'YOUR_APP_NAME'; // use the app name from Step 5
 const appPath = `/apps/${appName}`;
 
 ain.db
@@ -217,11 +219,11 @@ ain.db
   })
   .then((res) => {
     console.log('tx_hash:', res.tx_hash);
-    console.log('code:', res.code);
     // 0: success, if not 0, check the error code:
     // https://github.com/ainblockchain/ain-blockchain/blob/master/common/result-code.js
+    console.log('code:', res.result.code);
 
-    // Example output:
+    // example output:
     // tx_hash: 0x...
     // code: 0
   });
@@ -253,10 +255,10 @@ const Ain = require('@ainblockchain/ain-js').default;
 
 const ain = new Ain('https://testnet-api.ainetwork.ai');
 
-// Import the account using private key from Step 3
+// import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
 
-const appName = 'YOUR_APP_NAME'; // Use the app name from Step 5
+const appName = 'YOUR_APP_NAME'; // use the app name from Step 5
 const appPath = `/apps/${appName}`;
 
 // Set write rules to allow anyone to write data
@@ -272,11 +274,11 @@ ain.db
   })
   .then((res) => {
     console.log('tx_hash:', res.tx_hash);
-    console.log('code:', res.result.code);
     // 0: success, if not 0, check the error code:
     // https://github.com/ainblockchain/ain-blockchain/blob/master/common/result-code.js
+    console.log('code:', res.result.code);
 
-    // Example output:
+    // example output:
     // tx_hash: 0x...
     // code: 0
   });
@@ -313,15 +315,15 @@ const Ain = require('@ainblockchain/ain-js').default;
 
 const ain = new Ain('https://testnet-api.ainetwork.ai');
 
-// Import the account using private key from Step 3
+// import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
 
-const appName = 'YOUR_APP_NAME'; // Use the app name from Step 5
+const appName = 'YOUR_APP_NAME'; // use the app name from Step 5
 const appPath = `/apps/${appName}`;
 
-const functionPath = `${appPath}/messages/$user_addr/$timestamp/user`; // Wild cards!
+const functionPath = `${appPath}/messages/$user_addr/$timestamp/user`; // wild cards!
 
-// Set a function to be triggered when writing values at the function path
+// set a function to be triggered when writing values at the function path
 ain.db
   .ref(functionPath)
   .setFunction({
@@ -338,11 +340,11 @@ ain.db
   })
   .then((res) => {
     console.log('tx_hash:', res.tx_hash);
-    console.log('code:', res.result.code);
     // 0: success, if not 0, check the error code:
     // https://github.com/ainblockchain/ain-blockchain/blob/master/common/result-code.js
+    console.log('code:', res.result.code);
 
-    // Example output:
+    // example output:
     // tx_hash: 0x...
     // code: 0
   });
@@ -377,7 +379,7 @@ const Ain = require('@ainblockchain/ain-js').default;
 
 const ain = new Ain('https://testnet-api.ainetwork.ai');
 
-// Import the account using private key from Step 3
+// import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
 
 const appName = 'YOUR_APP_NAME'; // Use the app name from Step 5
@@ -385,7 +387,7 @@ const appPath = `/apps/${appName}`;
 
 const userMessagePath = `${appPath}/messages/${address}`;
 
-// Set a value at the path to trigger the function
+// set a value at the path to trigger the function
 ain.db
   .ref(`${userMessagePath}/${Date.now()}/user`)
   .setValue({
@@ -394,23 +396,24 @@ ain.db
   })
   .then((res) => {
     console.log('tx_hash:', res.tx_hash);
-    console.log('code:', res.result.code);
     // 0: success, if not 0, check the error code:
     // https://github.com/ainblockchain/ain-blockchain/blob/master/common/result-code.js
+    console.log('code:', res.result.code);
 
-    // Example output:
+    // example output:
     // tx_hash: 0x...
     // code: 0
   });
 
-// Check that the value is set correctly
-// If the echo bot is alive, it should have responded to your message
+// check that the value is set correctly
+// if the echo bot is alive, it should have responded to your message
 ain.db
   .ref(userMessagePath)
   .getValue()
   .then((data) => {
     console.log(JSON.stringify(data, null, 2));
-    // Example output:
+
+    // example output:
     // {
     //   "1631691438245": {
     //     "user": "Hello!",
