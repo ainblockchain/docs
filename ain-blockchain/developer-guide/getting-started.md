@@ -1,7 +1,6 @@
 ---
 description: >-
-  Welcome to the AIN Blockchain Quick Start Guide!
-  This hands-on guide will introduce you to the core concepts for building on the AIN blockchain.
+  This guide will introduce you to the core concepts for building on the AIN blockchain.
   By the end of this guide, you'll learn how to build a blockchain app that chats with a bot and earn 100 AIN!
 ---
 
