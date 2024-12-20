@@ -10,12 +10,6 @@ description: >-
 
 To interact with the blockchain in server-side JavaScript environments like Node.js, you can use the official [blockchain SDK for JavaScript or TypeScript](https://github.com/ainblockchain/ain-js). Get started by installing the SDK using npm or your preferred package manager:
 
-{% hint style="warning" %}
-
-**Caution**: Using the latest version. The following code may not work with old SDK versions.
-
-{% endhint %}
-
 ```
 npm install @ainblockchain/ain-js@latest
 ```
