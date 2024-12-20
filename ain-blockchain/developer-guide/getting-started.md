@@ -91,6 +91,8 @@ You can view transaction details by copying the transaction hash (starting with 
 
 ### Mainnet: Native AIN via AIN DAO Bot
 
+👉 [Join the AIN DAO Discord](https://discord.com/invite/aindao)
+
 To move ERC-20 AIN from Ethereum to Native AIN on the AI Network, follow these steps:
 
 1. **ERC-20 AIN** (Ethereum) → Deposited to **AIN DAO Discord** → Converted to **Discord Credits**.
@@ -125,7 +127,6 @@ To move ERC-20 AIN from Ethereum to Native AIN on the AI Network, follow these s
 - **Deposit**: Move your ERC-20 AIN from Ethereum into Discord to convert them into Discord Credits.
 - **Withdraw**: Convert Discord Credits into Native AIN and transfer them to your AI Network wallet.
 
-👉 [Join the AIN DAO Discord](https://discord.com/invite/aindao) to start the process!
 
 ## Step 5. Create your app
 
