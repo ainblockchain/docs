@@ -1,21 +1,16 @@
 ---
 description: >-
-  Welcome to the AIN Blockchain Quick Start Guide!
-  This hands-on guide will introduce you to the core concepts for building on the AIN blockchain.
+  This guide will introduce you to the core concepts for building on the AIN blockchain.
   By the end of this guide, you'll learn how to build a blockchain app that chats with a bot and earn 100 AIN!
 ---
 
 # Quick Start
 
+All code examples are in this [GitHub repository](https://github.com/ainblockchain/quickstart). Clone or refer for hands-on practice!
+
 ## Step 1. Install SDK
 
 To interact with the blockchain in server-side JavaScript environments like Node.js, you can use the official [blockchain SDK for JavaScript or TypeScript](https://github.com/ainblockchain/ain-js). Get started by installing the SDK using npm or your preferred package manager:
-
-{% hint style="warning" %}
-
-**Caution**: Using the latest version. The following code may not work with old SDK versions.
-
-{% endhint %}
 
 ```
 npm install @ainblockchain/ain-js@latest
@@ -28,7 +23,7 @@ npm install @ainblockchain/ain-js@latest
 The AI Network provides public RPC endpoints for blockchain interaction on both testnet and mainnet.  
 Use testnet to debug and test performance before deploying to mainnet. To use the [SDK](https://github.com/ainblockchain/ain-js) on mainnet, set the [chain ID](https://docs.ainetwork.ai/ain-blockchain/ai-network-design/network-id-and-chain-id) to 1.
 
-| Network | RPC endpoint                     | Event handler endpoint           | Chain ID |
+| Network | RPC Endpoint                     | Event handler Endpoint           | Chain ID |
 | ------- | -------------------------------- | -------------------------------- | -------- |
 | Testnet | https://testnet-api.ainetwork.ai | wss://testnet-event.ainetwork.ai | 0        |
 | Mainnet | https://mainnet-api.ainetwork.ai | wss://mainnet-event.ainetwork.ai | 1        |
@@ -36,15 +31,15 @@ Use testnet to debug and test performance before deploying to mainnet. To use th
 ```js
 const Ain = require('@ainblockchain/ain-js').default;
 
-const ain = new Ain('https://testnet-api.ainetwork.ai');
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
 
 // To use mainnet:
-// const ain = new Ain('https://mainnet-api.ainetwork.ai');
+// const ain = new Ain('https://mainnet-api.ainetwork.ai', 'wss://mainnet-event.ainetwork.ai', 1);
 ```
 
 ## Step 3. Create your wallet
 
-You can create as many accounts as you want, and set the default account. Need to backup your private key!
+You can create multiple accounts and set a default account. However, it’s crucial to **back up your private key** and store it securely. Losing your private key may result in losing access to your account permanently. Take extra precautions to prevent unauthorized access!
 
 {% code title="create_account.js" %}
 
@@ -53,17 +48,17 @@ const Ain = require('@ainblockchain/ain-js').default;
 
 const ain = new Ain('https://testnet-api.ainetwork.ai');
 
-// Create new account
+// create new account
 const accounts = ain.wallet.create(1);
 const address = accounts[0];
 
-// Set the new account as the default account
+// set the new account as the default account
 ain.wallet.setDefaultAccount(address);
 
-// Print the default account
+// print the default account
 console.log(ain.wallet.defaultAccount);
 
-// Example output:
+// example output:
 // {
 //   address: '0x09A0d53FDf1c36A131938eb379b98910e55EEfe1',
 //   private_key: '...',
@@ -93,40 +88,30 @@ You can view transaction details by copying the transaction hash (starting with 
 
 👉 [Join the AIN DAO Discord](https://discord.com/invite/aindao)
 
-To move ERC-20 AIN from Ethereum to Native AIN on the AI Network, follow these steps:
-
-1. **ERC-20 AIN** (Ethereum) → Deposited to **AIN DAO Discord** → Converted to **Discord Credits**.
-2. **Discord Credits** → Withdrawn as **Native AIN** (on AI Network).
+To convert **ERC-20 AIN** from Ethereum to **Native AIN** on the AI Network, follow these steps:
 
 #### Step 1: Import $AIN Tokens into MetaMask
 
-1. Open MetaMask and go to “Assets.”
-2. Click “Import Token” and select “Custom Token.”
-3. Use the contract address: `0x3a810ff7211b40c4fa76205a14efe161615d0385`
-4. Click “Add Custom Token” to see your $AIN balance.
+1. Open MetaMask and go to “Assets”.
+2. Click “Import Token” → “Custom Token”.
+3. Use this contract address: `0x3a810ff7211b40c4fa76205a14efe161615d0385`
+4. Click “Add Custom Token” to view your $AIN balance.
 
-#### Step 2: Deposit $AIN to AIN Credits
+#### Step 2: Deposit $AIN to AIN DAO Discord
 
-1. Type `/ain deposit` in the AIN DAO Discord to receive a unique deposit address (e.g. start with `0x...`).
+1. In Discord, type `/ain deposit` to receive your unique deposit address (start with `0x...`).
 2. Copy the deposit address.
 3. Open your ETH wallet and locate the $AIN token.
-4. Click “Send,” paste the copied address, and enter the amount of $AIN to deposit.
-5. Confirm the transaction in your wallet.
-6. In Discord, type `/ain balance` to confirm your deposit.  
-   **Note**: Deposits under 500 $AIN will not be paid out until the total deposited amount exceeds 500 $AIN.
+4. Click “Send,” paste the deposit address, and input the amount to deposit (Minimum: 500 AIN).
+5. Confirm the transaction.
+6. In Discord, type `/ain balance` to confirm your balance.
 
 #### Step 3: Withdraw AIN Credits to Native AIN
 
 1. Use the `/ain withdraw` command in Discord.
 2. Enter your AI Network wallet address.
-3. Specify the amount of AIN credits to withdraw (minimum: 500 AIN).
+3. Specify the withdrawal amount (Minimum: 500 AIN).
 4. Confirm the transaction.
-
-#### Summary
-
-- **Deposit**: Move your ERC-20 AIN from Ethereum into Discord to convert them into Discord Credits.
-- **Withdraw**: Convert Discord Credits into Native AIN and transfer them to your AI Network wallet.
-
 
 ## Step 5. Create your app
 
@@ -141,14 +126,14 @@ const Ain = require('@ainblockchain/ain-js').default;
 
 const ain = new Ain('https://testnet-api.ainetwork.ai');
 
-// Import the account using private key from Step 3
+// import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
 
-const appName = 'YOUR_APP_NAME'; // Use unique app name
+const appName = 'YOUR_APP_NAME'; // define unique app name
 const appPath = `/apps/${appName}`;
 
-// Create an app at /apps/${appName}
-// The admin config below grants 'address' both owner and write permissions for the app
+// create an app at /apps/${appName}
+// the admin config below grants 'address' both owner and write permissions for the app
 ain.db
   .ref(`/manage_app/${appName}/create/${Date.now()}`)
   .setValue({
@@ -166,11 +151,11 @@ ain.db
   })
   .then((res) => {
     console.log('tx_hash:', res.tx_hash);
-    console.log('code:', res.code);
     // 0: success, if not 0, check the error code:
     // https://github.com/ainblockchain/ain-blockchain/blob/master/common/result-code.js
+    console.log('code:', res.result.code);
 
-    // Example output:
+    // example output:
     // tx_hash: 0x...
     // code: 0
   });
@@ -183,14 +168,14 @@ You can use the `getOwner` function to check app's owner permissions and confirm
 {% code title="create_app.js" %}
 
 ```javascript
-// Check the owner permissions have been set properly
+// check the owner permissions have been set properly
 ain.db
   .ref(appPath)
   .getOwner()
   .then((res) => {
     console.log(JSON.stringify(res, null, 2));
 
-    // Example output:
+    // example output:
     // {
     //   ".owner": {
     //     "owners": {
@@ -220,10 +205,10 @@ const Ain = require('@ainblockchain/ain-js').default;
 
 const ain = new Ain('https://testnet-api.ainetwork.ai');
 
-// Import the account using private key from Step 3
+// import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
 
-const appName = 'YOUR_APP_NAME'; // Use the app name from Step 5
+const appName = 'YOUR_APP_NAME'; // use the app name from Step 5
 const appPath = `/apps/${appName}`;
 
 ain.db
@@ -234,11 +219,11 @@ ain.db
   })
   .then((res) => {
     console.log('tx_hash:', res.tx_hash);
-    console.log('code:', res.code);
     // 0: success, if not 0, check the error code:
     // https://github.com/ainblockchain/ain-blockchain/blob/master/common/result-code.js
+    console.log('code:', res.result.code);
 
-    // Example output:
+    // example output:
     // tx_hash: 0x...
     // code: 0
   });
@@ -270,13 +255,13 @@ const Ain = require('@ainblockchain/ain-js').default;
 
 const ain = new Ain('https://testnet-api.ainetwork.ai');
 
-// Import the account using private key from Step 3
+// import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
 
-const appName = 'YOUR_APP_NAME'; // Use the app name from Step 5
+const appName = 'YOUR_APP_NAME'; // use the app name from Step 5
 const appPath = `/apps/${appName}`;
 
-// Set write rules to allow anyone to write data
+// set write rules to allow anyone to write data
 ain.db
   .ref(appPath)
   .setRule({
@@ -289,11 +274,11 @@ ain.db
   })
   .then((res) => {
     console.log('tx_hash:', res.tx_hash);
-    console.log('code:', res.result.code);
     // 0: success, if not 0, check the error code:
     // https://github.com/ainblockchain/ain-blockchain/blob/master/common/result-code.js
+    console.log('code:', res.result.code);
 
-    // Example output:
+    // example output:
     // tx_hash: 0x...
     // code: 0
   });
@@ -330,15 +315,15 @@ const Ain = require('@ainblockchain/ain-js').default;
 
 const ain = new Ain('https://testnet-api.ainetwork.ai');
 
-// Import the account using private key from Step 3
+// import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
 
-const appName = 'YOUR_APP_NAME'; // Use the app name from Step 5
+const appName = 'YOUR_APP_NAME'; // use the app name from Step 5
 const appPath = `/apps/${appName}`;
 
-const functionPath = `${appPath}/messages/$user_addr/$timestamp/user`; // Wild cards!
+const functionPath = `${appPath}/messages/$user_addr/$timestamp/user`; // wild cards!
 
-// Set a function to be triggered when writing values at the function path
+// set a function to be triggered when writing values at the function path
 ain.db
   .ref(functionPath)
   .setFunction({
@@ -346,8 +331,8 @@ ain.db
       '.function': {
         'my-bot-trigger': {
           function_type: 'REST',
-          function_url: 'http://echo-bot.ainetwork.ai/trigger', // An endpoint to your event listener server
-          function_id: 'my-bot-trigger', // Use your own function id
+          function_url: 'http://echo-bot.ainetwork.ai/trigger', // endpoint to your event listener server
+          function_id: 'my-bot-trigger', // use your own function id
         },
       },
     },
@@ -355,11 +340,11 @@ ain.db
   })
   .then((res) => {
     console.log('tx_hash:', res.tx_hash);
-    console.log('code:', res.result.code);
     // 0: success, if not 0, check the error code:
     // https://github.com/ainblockchain/ain-blockchain/blob/master/common/result-code.js
+    console.log('code:', res.result.code);
 
-    // Example output:
+    // example output:
     // tx_hash: 0x...
     // code: 0
   });
@@ -394,15 +379,15 @@ const Ain = require('@ainblockchain/ain-js').default;
 
 const ain = new Ain('https://testnet-api.ainetwork.ai');
 
-// Import the account using private key from Step 3
+// import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
 
-const appName = 'YOUR_APP_NAME'; // Use the app name from Step 5
+const appName = 'YOUR_APP_NAME'; // use the app name from Step 5
 const appPath = `/apps/${appName}`;
 
 const userMessagePath = `${appPath}/messages/${address}`;
 
-// Set a value at the path to trigger the function
+// set a value at the path to trigger the function
 ain.db
   .ref(`${userMessagePath}/${Date.now()}/user`)
   .setValue({
@@ -411,27 +396,28 @@ ain.db
   })
   .then((res) => {
     console.log('tx_hash:', res.tx_hash);
-    console.log('code:', res.result.code);
     // 0: success, if not 0, check the error code:
     // https://github.com/ainblockchain/ain-blockchain/blob/master/common/result-code.js
+    console.log('code:', res.result.code);
 
-    // Example output:
+    // example output:
     // tx_hash: 0x...
     // code: 0
   });
 
-// Check that the value is set correctly
-// If the echo bot is alive, it should have responded to your message
+// check that the value is set correctly
+// if the echo bot is alive, it should have responded to your message
 ain.db
   .ref(userMessagePath)
   .getValue()
   .then((data) => {
     console.log(JSON.stringify(data, null, 2));
-    // Example output:
+
+    // example output:
     // {
     //   "1631691438245": {
     //     "user": "Hello!",
-    //     "echo-bot": "Did you mean \"Hello!\"?" // Written by the echo bot.
+    //     "echo-bot": "Did you mean \"Hello!\"?" // written by the echo bot.
     //   }
     // }
   });
