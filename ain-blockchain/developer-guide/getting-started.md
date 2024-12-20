@@ -12,7 +12,9 @@ description: >-
 To interact with the blockchain in server-side JavaScript environments like Node.js, you can use the official [blockchain SDK for JavaScript or TypeScript](https://github.com/ainblockchain/ain-js). Get started by installing the SDK using npm or your preferred package manager:
 
 {% hint style="warning" %}
+
 **Caution**: Using the latest version. The following code may not work with old SDK versions.
+
 {% endhint %}
 
 ```
@@ -87,7 +89,7 @@ You can view transaction details by copying the transaction hash (starting with 
 
 ![The AI Network Faucet site.](<../../.gitbook/assets/Screen Shot 2019-12-16 at 10.15.42 PM.png>)
 
-### Mainnet: AIN via AIN DAO Bot
+### Mainnet: Native AIN via AIN DAO Bot
 
 To move ERC-20 AIN from Ethereum to Native AIN on the AI Network, follow these steps:
 
@@ -111,13 +113,12 @@ To move ERC-20 AIN from Ethereum to Native AIN on the AI Network, follow these s
 6. In Discord, type `/ain balance` to confirm your deposit.  
    **Note**: Deposits under 500 $AIN will not be paid out until the total deposited amount exceeds 500 $AIN.
 
-#### Step 3: Withdraw AIN Credits to $AIN
+#### Step 3: Withdraw AIN Credits to Native AIN
 
 1. Use the `/ain withdraw` command in Discord.
-2. Select the chain for withdrawal (currently, only Ethereum is supported).
-3. Enter your Ethereum wallet address.
-4. Specify the amount of AIN credits to withdraw (minimum: 10 AIN).
-5. Confirm the transaction.
+2. Enter your AI Network wallet address.
+3. Specify the amount of AIN credits to withdraw (minimum: 500 AIN).
+4. Confirm the transaction.
 
 #### Summary
 
