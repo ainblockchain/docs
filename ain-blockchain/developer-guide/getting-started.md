@@ -1,16 +1,19 @@
 ---
 description: >-
   This guide will introduce you to the core concepts for building on the AIN blockchain.
+
   By the end of this guide, you'll learn how to build a blockchain app that chats with a bot and earn 100 AIN!
 ---
 
 # Quick Start
 
-All code examples are in this [GitHub repository](https://github.com/ainblockchain/quickstart). Clone or refer for hands-on practice!
+{% hint style="info" %}
+All examples are in this [GitHub repo](https://github.com/ainblockchain/quickstart)—clone and try them out!
+{% endhint %}
 
 ## Step 1. Install SDK
 
-To interact with the blockchain in server-side JavaScript environments like Node.js, you can use the official [blockchain SDK for JavaScript or TypeScript](https://github.com/ainblockchain/ain-js). Get started by installing the SDK using npm or your preferred package manager:
+To interact with the blockchain in server-side JavaScript environments like Node.js, you can use the official [blockchain SDK for JavaScript](https://github.com/ainblockchain/ain-js). Install the SDK with npm or your preferred package manager:
 
 ```
 npm install @ainblockchain/ain-js@latest
@@ -20,10 +23,9 @@ npm install @ainblockchain/ain-js@latest
 
 ### Public RPC endpoints
 
-The AI Network provides public RPC endpoints for blockchain interaction on both testnet and mainnet.  
-Use testnet to debug and test performance before deploying to mainnet. To use the [SDK](https://github.com/ainblockchain/ain-js) on mainnet, set the [chain ID](https://docs.ainetwork.ai/ain-blockchain/ai-network-design/network-id-and-chain-id) to 1.
+The AI Network provides public RPC endpoints for blockchain interaction on both testnet and mainnet. Use testnet to debug and test performance before deploying to mainnet. To use the [SDK](https://github.com/ainblockchain/ain-js) on mainnet, set the [Chain ID](https://docs.ainetwork.ai/ain-blockchain/ai-network-design/network-id-and-chain-id) to 1.
 
-| Network | RPC Endpoint                     | Event handler Endpoint           | Chain ID |
+| Network | RPC Endpoint                     | Event Handler Endpoint           | Chain ID |
 | ------- | -------------------------------- | -------------------------------- | -------- |
 | Testnet | https://testnet-api.ainetwork.ai | wss://testnet-event.ainetwork.ai | 0        |
 | Mainnet | https://mainnet-api.ainetwork.ai | wss://mainnet-event.ainetwork.ai | 1        |
@@ -102,7 +104,7 @@ To convert **ERC-20 AIN** from Ethereum to **Native AIN** on the AI Network, fol
 1. In Discord, type `/ain deposit` to receive your unique deposit address (start with `0x...`).
 2. Copy the deposit address.
 3. Open your ETH wallet and locate the $AIN token.
-4. Click “Send,” paste the deposit address, and input the amount to deposit (Minimum: 500 AIN).
+4. Click “Send,” paste the deposit address, and input the amount to deposit (minimum: 500 AIN).
 5. Confirm the transaction.
 6. In Discord, type `/ain balance` to confirm your balance.
 
@@ -110,7 +112,7 @@ To convert **ERC-20 AIN** from Ethereum to **Native AIN** on the AI Network, fol
 
 1. Use the `/ain withdraw` command in Discord.
 2. Enter your AI Network wallet address.
-3. Specify the withdrawal amount (Minimum: 500 AIN).
+3. Specify the withdrawal amount (minimum: 500 AIN).
 4. Confirm the transaction.
 
 ## Step 5. Create your app
@@ -151,13 +153,7 @@ ain.db
   })
   .then((res) => {
     console.log('tx_hash:', res.tx_hash);
-    // 0: success, if not 0, check the error code:
-    // https://github.com/ainblockchain/ain-blockchain/blob/master/common/result-code.js
-    console.log('code:', res.result.code);
-
-    // example output:
-    // tx_hash: 0x...
-    // code: 0
+    console.log('code:', res.result.code); // 0: success
   });
 ```
 
@@ -219,13 +215,7 @@ ain.db
   })
   .then((res) => {
     console.log('tx_hash:', res.tx_hash);
-    // 0: success, if not 0, check the error code:
-    // https://github.com/ainblockchain/ain-blockchain/blob/master/common/result-code.js
-    console.log('code:', res.result.code);
-
-    // example output:
-    // tx_hash: 0x...
-    // code: 0
+    console.log('code:', res.result.code); // 0: success
   });
 ```
 
@@ -233,7 +223,6 @@ ain.db
 
 ## Step 7. Make your app public
 
-If you're the only one using the app, you can skip this step.  
 To allow others (e.g., an echo bot) to write to your app’s paths, you need to modify the rules. By default, the write rule is:
 
 ```js
@@ -274,13 +263,7 @@ ain.db
   })
   .then((res) => {
     console.log('tx_hash:', res.tx_hash);
-    // 0: success, if not 0, check the error code:
-    // https://github.com/ainblockchain/ain-blockchain/blob/master/common/result-code.js
-    console.log('code:', res.result.code);
-
-    // example output:
-    // tx_hash: 0x...
-    // code: 0
+    console.log('code:', res.result.code); // 0: success
   });
 ```
 
@@ -340,13 +323,7 @@ ain.db
   })
   .then((res) => {
     console.log('tx_hash:', res.tx_hash);
-    // 0: success, if not 0, check the error code:
-    // https://github.com/ainblockchain/ain-blockchain/blob/master/common/result-code.js
-    console.log('code:', res.result.code);
-
-    // example output:
-    // tx_hash: 0x...
-    // code: 0
+    console.log('code:', res.result.code); // 0: success
   });
 ```
 
@@ -356,7 +333,7 @@ Once registered, a POST request will be sent to the `function_url`, whenever a v
 
 You can check the function was set successfully using the `getFunction` function.
 
-Below is an example of a triggering value (at .../user) and a response value (at .../echo-bot) written by Echo bot 👾.
+Below is an example of a triggering value (at .../user) and a response value (at .../echo-bot) written by Echo bot.
 If configured correctly, the Echo bot [http://echo-bot.ainetwork.ai/trigger](http://echo-bot.ainetwork.ai/trigger) will respond to your message by writing a value automatically.
 
 ```js
@@ -396,13 +373,7 @@ ain.db
   })
   .then((res) => {
     console.log('tx_hash:', res.tx_hash);
-    // 0: success, if not 0, check the error code:
-    // https://github.com/ainblockchain/ain-blockchain/blob/master/common/result-code.js
-    console.log('code:', res.result.code);
-
-    // example output:
-    // tx_hash: 0x...
-    // code: 0
+    console.log('code:', res.result.code); // 0: success
   });
 
 // check that the value is set correctly
