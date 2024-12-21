@@ -13,7 +13,7 @@ All examples are in this [GitHub repo](https://github.com/ainblockchain/quicksta
 
 ## Step 1. Install SDK
 
-To interact with the blockchain in server-side JavaScript environments like Node.js, you can use the official [blockchain SDK for JavaScript](https://github.com/ainblockchain/ain-js). Install the SDK with npm or your preferred package manager:
+To interact with the blockchain in server-side JavaScript environments like Node.js, you can use the official [blockchain SDK for JavaScript](https://github.com/ainblockchain/ain-js). Install the SDK with npm or your preferred package manager. Make sure to install version **1.10.0 or later** for full compatibility:
 
 ```
 npm install @ainblockchain/ain-js@latest
@@ -33,10 +33,8 @@ The AI Network provides public RPC endpoints for blockchain interaction on both 
 ```js
 const Ain = require('@ainblockchain/ain-js').default;
 
-const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
-
-// To use mainnet:
-// const ain = new Ain('https://mainnet-api.ainetwork.ai', 'wss://mainnet-event.ainetwork.ai', 1);
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0); // testnet
+const ain = new Ain('https://mainnet-api.ainetwork.ai', 'wss://mainnet-event.ainetwork.ai', 1); // mainnet
 ```
 
 ## Step 3. Create your wallet
@@ -48,7 +46,7 @@ You can create multiple accounts and set a default account. However, it’s cruc
 ```js
 const Ain = require('@ainblockchain/ain-js').default;
 
-const ain = new Ain('https://testnet-api.ainetwork.ai');
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0);
 
 // create new account
 const accounts = ain.wallet.create(1);
@@ -117,6 +115,10 @@ To convert **ERC-20 AIN** from Ethereum to **Native AIN** on the AI Network, fol
 
 ## Step 5. Create your app
 
+{% hint style="warning" %}
+You need at least 5 AIN to create an app. See **Step 4** to get AIN.
+{% endhint %}
+
 You can create your own app by setting a value to `/manage_app/${appName}/create/${key}` path. The value must contain an [admin config](https://docs.ainetwork.ai/ain-blockchain/ai-network-design/apps#admin-config), which is an object of `{ [address]: true }`. The addresses in the admin config will get the owner and write permissions to the `/apps/${appName}` path.
 
 Setting a value at the path `/manage_app/${appName}/create/${key}` triggers the native function `_createApp`, automatically setting the `owner` and `rule` permissions.
@@ -126,12 +128,15 @@ Setting a value at the path `/manage_app/${appName}/create/${key}` triggers the 
 ```js
 const Ain = require('@ainblockchain/ain-js').default;
 
-const ain = new Ain('https://testnet-api.ainetwork.ai');
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0); // testnet
 
 // import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
 
-const appName = 'YOUR_APP_NAME'; // define unique app name
+// define a unique app name
+// the app name can only contain lowercase letters, numbers, and underscores(_)
+// rename if write rule error occurs
+const appName = 'YOUR_APP_NAME';
 const appPath = `/apps/${appName}`;
 
 // create an app at /apps/${appName}
@@ -163,7 +168,7 @@ You can use the `getOwner` function to check app's owner permissions and confirm
 
 {% code title="create_app.js" %}
 
-```javascript
+```js
 // check the owner permissions have been set properly
 ain.db
   .ref(appPath)
@@ -191,15 +196,20 @@ ain.db
 
 ## Step 6. Stake AIN to your app
 
+{% hint style="warning" %}
+On the mainnet, a free tier is available for staking, so this step is optional.
+However, if you want to write more data, you need to stake AIN.
+{% endhint %}
+
 Staking is important for securing the capacity needed to write data to the blockchain.
 The amount of data you can record is proportional to the amount of AIN you have staked. Below is a simple code example on how to set up staking.
 
-{% code title="create_app.js" %}
+{% code title="stake_app.js" %}
 
 ```js
 const Ain = require('@ainblockchain/ain-js').default;
 
-const ain = new Ain('https://testnet-api.ainetwork.ai');
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0); // testnet
 
 // import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
@@ -242,7 +252,7 @@ To make the app public (allowing anyone to write data), change the write rule to
 ```js
 const Ain = require('@ainblockchain/ain-js').default;
 
-const ain = new Ain('https://testnet-api.ainetwork.ai');
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0); // testnet
 
 // import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
@@ -296,7 +306,7 @@ You can register an event listener by setting a function config to a specific pa
 ```js
 const Ain = require('@ainblockchain/ain-js').default;
 
-const ain = new Ain('https://testnet-api.ainetwork.ai');
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0); // testnet
 
 // import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
@@ -354,7 +364,7 @@ Use the `getValue` function to check the response value.
 ```js
 const Ain = require('@ainblockchain/ain-js').default;
 
-const ain = new Ain('https://testnet-api.ainetwork.ai');
+const ain = new Ain('https://testnet-api.ainetwork.ai', 'wss://testnet-event.ainetwork.ai', 0); // testnet
 
 // import the account using private key from Step 3
 const address = ain.wallet.addAndSetDefaultAccount('YOUR_PRIVATE_KEY');
