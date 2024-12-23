@@ -324,7 +324,8 @@ ain.db
       '.function': {
         'my-bot-trigger': {
           function_type: 'REST',
-          function_url: 'http://echo-bot.ainetwork.ai/trigger', // endpoint to your event listener server
+          function_url: 'http://testnet-echo-bot.ainetwork.ai/trigger', // function url for testnet
+       // function_url: 'http://mainnet-echo-bot.ainetwork.ai/trigger', // function url for mainnet
           function_id: 'my-bot-trigger', // use your own function id
         },
       },
