@@ -324,7 +324,8 @@ ain.db
       '.function': {
         'my-bot-trigger': {
           function_type: 'REST',
-          function_url: 'http://echo-bot.ainetwork.ai/trigger', // endpoint to your event listener server
+          function_url: 'http://testnet-echo-bot.ainetwork.ai/trigger', // function url for testnet
+       // function_url: 'http://mainnet-echo-bot.ainetwork.ai/trigger', // function url for mainnet
           function_id: 'my-bot-trigger', // use your own function id
         },
       },
@@ -343,8 +344,7 @@ Once registered, a POST request will be sent to the `function_url`, whenever a v
 
 You can check the function was set successfully using the `getFunction` function.
 
-Below is an example of a triggering value (at .../user) and a response value (at .../echo-bot) written by Echo bot.
-If configured correctly, the Echo bot [http://echo-bot.ainetwork.ai/trigger](http://echo-bot.ainetwork.ai/trigger) will respond to your message by writing a value automatically.
+Below is an example of a triggering value (at .../user) and a response value (at .../echo-bot) written by Echo bot. If configured correctly, the Echo bot will respond to your message by writing a value automatically.
 
 ```js
 // '/apps/<app-name>/messages/<user-addr>/<timestamp>'
