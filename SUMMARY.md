@@ -49,6 +49,7 @@
     * [ain-js](ain-blockchain/developer-reference/blockchain-sdk/ain-js.md)
     * [ain-py](ain-blockchain/developer-reference/blockchain-sdk/ain-py.md)
   * [Validators](ain-blockchain/developer-reference/validators.md)
+* [Staking](ain-blockchain/staking/staking.md)
 
 ## AIN DAO
 
