@@ -11,7 +11,7 @@ In our system, staking works a bit differently depending on where you stake your
 
 1. **Staking in the consensus app**
 
-- **What it does:** Your tokens are used to create new blocks on the blockchain.
+- **What it does:** AIN Blockchain adopts the PoS consensus algorithm. The staking amount in the 'consensus' app is used to create new blocks on the blockchain.
 - **What you get:** You earn rewards based on the blocks created.
 - **Why it's important:** It secures the blockchain and keeps it running smoothly.
 
@@ -124,8 +124,8 @@ To determine the right staking amount for your app, consider the following key p
 1. Understand resource needs
 
 - Your app requires two budgets:
-  - **Bandwidth Budget:** Calculated as the number of transactions per second (TPS)
-  - **State Budget:** Based on the memory used in the blockchain's state tree (limit: 5GB shared across all apps).
+  - **Bandwidth Budget:** Calculated as the number of the DB write operations needed to execute the transaction.
+  - **State Budget:** Based on the memory used in the blockchain's state tree.
 - The more resources your app uses, the higher the staking amount required.
 
 2. Dynamic allocation
