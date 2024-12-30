@@ -103,7 +103,8 @@ $ npm install
 
 ```sh
 $ node sendStakeTx.js <BLOCKCHAIN_API_ENDPOINT> <CHAIN_ID> <APP_NAME> <STAKING_AMOUNT> <ACCOUNT_TYPE> [<KEYSTORE_FILE_PATH>]
-$ node sendStakeTx.js https://testnet-api.ainetwork.ai 0 test_app 100 keystore keystore_user.json
+$ node sendStakeTx.js https://testnet-api.ainetwork.ai 0 test_app 100 private_key
+$ node sendStakeTx.js https://testnet-api.ainetwork.ai 0 test_app 100 mnemonic
 ```
 
 - Replace the placeholders with your own values:
