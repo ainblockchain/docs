@@ -84,8 +84,6 @@
 * [What is AIN Wallet?](ain-wallet/what-is-ain-wallet.md)
 * [AIN Wallet API](ain-wallet/ain-wallet-api.md)
 
-## Resource Providers
-
 ## PROPOSAL DOCUMENTS
 
 * [AIN Improvement Memos (AIMs)](proposal-documents/ain-improvement-memos.md)

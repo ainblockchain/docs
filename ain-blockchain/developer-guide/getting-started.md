@@ -1,8 +1,8 @@
 ---
 description: >-
-  This guide will introduce you to the core concepts for building on the AIN blockchain.
-
-  By the end of this guide, you'll learn how to build a blockchain app that chats with a bot and earn 100 AIN!
+  This guide will introduce you to the core concepts for building on the AIN
+  blockchain. By the end of this guide, you'll learn how to build a blockchain
+  app that chats with a bot and earn 100 AIN!
 ---
 
 # Quick Start
@@ -42,7 +42,6 @@ const ain = new Ain('https://mainnet-api.ainetwork.ai', 'wss://mainnet-event.ain
 You can create multiple accounts and set a default account. However, it’s crucial to **back up your private key** and store it securely. Losing your private key may result in losing access to your account permanently. Take extra precautions to prevent unauthorized access!
 
 {% code title="create_account.js" %}
-
 ```js
 const Ain = require('@ainblockchain/ain-js').default;
 
@@ -65,7 +64,6 @@ console.log(ain.wallet.defaultAccount);
 //   public_key: '...'
 // }
 ```
-
 {% endcode %}
 
 ## Step 4. Get AIN (for free!)
@@ -124,7 +122,6 @@ You can create your own app by setting a value to `/manage_app/${appName}/create
 Setting a value at the path `/manage_app/${appName}/create/${key}` triggers the native function `_createApp`, automatically setting the `owner` and `rule` permissions.
 
 {% code title="create_app.js" %}
-
 ```js
 const Ain = require('@ainblockchain/ain-js').default;
 
@@ -161,13 +158,11 @@ ain.db
     console.log('code:', res.result.code); // 0: success
   });
 ```
-
 {% endcode %}
 
 You can use the `getOwner` function to check app's owner permissions and confirm the app was created successfully.
 
 {% code title="create_app.js" %}
-
 ```js
 // check the owner permissions have been set properly
 ain.db
@@ -191,21 +186,17 @@ ain.db
     // }
   });
 ```
-
 {% endcode %}
 
 ## Step 6. Stake AIN to your app
 
 {% hint style="warning" %}
-On the mainnet, a free tier is available for staking, so this step is optional.
-However, if you want to write more data, you need to stake AIN.
+On the mainnet, a free tier is available for staking, so this step is optional. However, if you want to write more data, you need to stake AIN.
 {% endhint %}
 
-Staking is important for securing the capacity needed to write data to the blockchain.
-The amount of data you can record is proportional to the amount of AIN you have staked. Below is a simple code example on how to set up staking.
+Staking is important for securing the capacity needed to write data to the blockchain. The amount of data you can record is proportional to the amount of AIN you have staked. Below is a simple code example on how to set up staking.
 
 {% code title="stake_app.js" %}
-
 ```js
 const Ain = require('@ainblockchain/ain-js').default;
 
@@ -228,7 +219,6 @@ ain.db
     console.log('code:', res.result.code); // 0: success
   });
 ```
-
 {% endcode %}
 
 ## Step 7. Make your app public
@@ -248,7 +238,6 @@ This means only your account can write data.
 To make the app public (allowing anyone to write data), change the write rule to `true`. Use the `setRule` function to update it.
 
 {% code title="set_rule.js" %}
-
 ```js
 const Ain = require('@ainblockchain/ain-js').default;
 
@@ -276,14 +265,13 @@ ain.db
     console.log('code:', res.result.code); // 0: success
   });
 ```
-
 {% endcode %}
 
 Now, anyone can use your app! You can check the rule with `getRule` function.
 
 #### Advanced settings ✨
 
-If you’re concerned about security (which you should be), you can define more specific paths and rules.  
+If you’re concerned about security (which you should be), you can define more specific paths and rules.\
 For example, you can restrict access to `/apps/my_app/restricted/area/for/0xabcd...1234` so that only the holder of the private key for `0xabcd...1234` can write to it. Notice the use of wildcards for flexibility!
 
 ```js
@@ -302,7 +290,6 @@ ain.db.ref('/apps/my_app/restricted/area/for/$address').setRule({
 You can register an event listener by setting a function config to a specific path.
 
 {% code title="set_function.js" %}
-
 ```js
 const Ain = require('@ainblockchain/ain-js').default;
 
@@ -337,7 +324,6 @@ ain.db
     console.log('code:', res.result.code); // 0: success
   });
 ```
-
 {% endcode %}
 
 Once registered, a POST request will be sent to the `function_url`, whenever a value is written to `/apps/my_bot/messages/$user_addr/$timestamp/user` path. Since `my-bot-trigger` is just a placeholder, customize it with your own trigger name.
@@ -356,11 +342,9 @@ Below is an example of a triggering value (at .../user) and a response value (at
 
 ## Step 9. Write values
 
-Everything is ready! You can now write data with the `setValue` function to trigger the Echo bot function.
-Use the `getValue` function to check the response value.
+Everything is ready! You can now write data with the `setValue` function to trigger the Echo bot function. Use the `getValue` function to check the response value.
 
 {% code title="set_value.js" %}
-
 ```js
 const Ain = require('@ainblockchain/ain-js').default;
 
@@ -403,5 +387,4 @@ ain.db
     // }
   });
 ```
-
 {% endcode %}
