@@ -7,6 +7,11 @@ description: >-
 
 # Token Bridge
 
+**Base Bridge: If you are looking for the Base network bridge instead, please visit** [**bridge.ainetwork.ai**](https://bridge.ainetwork.ai)**.**
+
+> Please note that this tutorial focuses specifically on native AIN. It is intended for expert users and partner developers who possess a detailed understanding of the AIN blockchain architecture and its underlying mechanics.
+
+\
 Note: This guide assumes that you have an Ethereum wallet with some AIN ERC20 tokens in it. You can buy AIN ERC20 tokens on Uniswap, Balancer, or GOPAX.
 
 #### AIN ERC20 Token Addresses
