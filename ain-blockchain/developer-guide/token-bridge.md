@@ -1,8 +1,7 @@
 ---
 description: >-
-  AI Network operates a token bridge between AIN native coins and AIN ERC20
-  tokens on Ethereum. Disclaimer: Check-in and check-out requests may take a few
-  days to be processed.
+  Please note that the AI Network token bridge between AIN native coins and AIN
+  ERC20 tokens on Ethereum is currently purely conceptual.
 ---
 
 # Token Bridge
