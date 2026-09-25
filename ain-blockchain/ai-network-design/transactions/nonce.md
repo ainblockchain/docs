@@ -1,24 +1,13 @@
 # Nonce
 
-Transactions signed by the same private key (i.e., with the same address) are submitted and handled in an order using nonce. Usually, nonce is a non-negative integer value, starting from 0, that stands for the number of transactions accepted to blocks so far. Whenever a transaction is submitted its nonce is check in the following way:
+AIN supports three transaction ordering modes. All modes still require a valid signature, the active chain ID, an allowed timestamp, sufficient resources, and permission under the state rules.
 
-* If the nonce value is equal to (the number of transactions with the same address in blocks) + 1, it's accepted
-* Otherwise, it's kept in pending mode with a predefined timeout value until the condition met.
+| Mode | `nonce` | Ordering |
+| --- | --- | --- |
+| Numbered | Integer >= 0 | Must match the account's next nonce; a new account starts at 0. |
+| Unordered | -1 | No account nonce ordering; duplicate transactions are rejected. |
+| Timestamp ordered | -2 | Timestamp must be strictly greater than the account's preceding ordered timestamp. |
 
-We call this type of nonce _numbered nonce_. This is enough for typical human-generated transactions. For more use cases like machine-generated transactions, we support two more types: _ordered nonce_ and _unordered nonce_.
+Query the account's nonce through the SDK/API instead of calculating it from a count of historical transactions. Concurrent clients must coordinate numbered nonces. A stale numbered nonce is invalid; do not assume an arbitrary future nonce will remain queued until accepted.
 
-Transactions with loosely ordered nonce are ordered using timestamp:
-
-* If the timestamp is larger than the last timestamp, it's accepted
-* Otherwise, it' rejected
-
-Transactions with unordered nonce is always accepted unless a transaction with the same transaction hash is already in blocks.
-
-Three different types of nonce can be compared as follows:
-
-| Type      | Nonce Field          | When To Use                                                               | Good For                                                                 | API Version |
-| --------- | -------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ----------- |
-| Numbered  | Non-negative integer | Single client                                                             | Human-generated txs                                                      | 1.0         |
-| Unordered | -1                   | Single or multiple clients, transactions are not aligned with each other. | Machine-generated txs with different generation time and submission time | 1.0         |
-| Ordered   | -2                   | Multiple clients, transactions are aligned with time                      | Machine-generated txs with multiple clients                              | 1.0         |
-
+Use a fresh millisecond timestamp for a new transaction. After an execution-chain-ID transition, a pre-transition timestamp or an obsolete chain-domain signature is rejected even with nonce -1. To retry an uncertain submission, query its transaction hash before creating another transaction.

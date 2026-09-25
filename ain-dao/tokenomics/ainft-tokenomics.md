@@ -2,7 +2,7 @@
 
 Overview
 
-AI Network has developed a model for tokenomics in [AINFT](broken-reference) projects. It focuses on the sustainable growth of the community by providing sufficient rewards to its members – especially the NFT holders – as well as growing the AI Network ecosystem along with the projects'.
+AI Network has developed a model for tokenomics in [AINFT](../../ai-agents/ainft.md) projects. It focuses on the sustainable growth of the community by providing sufficient rewards to its members – especially the NFT holders – as well as growing the AI Network ecosystem along with the projects'.
 
 ![](<../../.gitbook/assets/Token Economy Diagram v2.png>)
 
