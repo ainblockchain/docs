@@ -77,16 +77,16 @@ Then, we’ll intialize ainft-js and create AINFT object. Use create function wi
 
 {% code fullWidth="false" %}
 ```typescript
-const config = {
-  ainftServerEndpoint: 'https://ainft-api-dev.ainetwork.ai',
-  ainBlockchainEndpoint: 'https://testnet-api.ainetwork.ai',
-}
-const ainftJs = new AinftJs('YOUR_PRIVATE_KEY', config);
+const ainftJs = new AinftJs({
+  privateKey: 'YOUR_PRIVATE_KEY',
+  baseUrl: 'https://ainft-api-dev.ainetwork.ai',
+  blockchainUrl: 'https://testnet-api.ainetwork.ai',
+});
 
 const name = 'ainft_for_tutorial';
 const symbol = 'TUTORIAL';
 
-ainftJs.nft.create(name, symbol)
+ainftJs.nft.create({ name, symbol })
 .then((res) => {
 	const { txHash, ainftObject } = res;
 	console.log(txHash);
