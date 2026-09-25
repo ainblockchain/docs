@@ -9,12 +9,11 @@ You need an account that owns AINFT, nftId, tokenId and an address to receive.
 ```typescript
 const AinftJs = require('@ainft-team/ainft-js').default;
 
-const privateKey = 'TOKEN_OWNER_PRIVATE_KEY';
-const config = {
-  ainftServerEndpoint: 'https://ainft-api-dev.ainetwork.ai',
-  ainBlockchainEndpoint: 'https://testnet-api.ainetwork.ai',
-}
-const ainftJs = new AinftJs(privateKey, config);
+const ainftJs = new AinftJs({
+  privateKey: 'TOKEN_OWNER_PRIVATE_KEY',
+  baseUrl: 'https://ainft-api-dev.ainetwork.ai',
+  blockchainUrl: 'https://testnet-api.ainetwork.ai',
+});
 ```
 
 Then send the AINFT.

@@ -9,18 +9,17 @@ Only AINFT object owner can update metadata of each token. Metadata is configure
 ```jsx
 const AinftJs = require('@ainft-team/ainft-js').default;
 
-const privateKey = 'AINFT_OBJECT_OWNER_PRIVATE_KEY';
-const config = {
-  ainftServerEndpoint: '<https://ainft-api-dev.ainetwork.ai>',
-  ainBlockchainEndpoint: '<https://testnet-api.ainetwork.ai>',
-}
-const ainftJs = new AinftJs(privateKey, config);
+const ainftJs = new AinftJs({
+  privateKey: 'AINFT_OBJECT_OWNER_PRIVATE_KEY',
+  baseUrl: 'https://ainft-api-dev.ainetwork.ai',
+  blockchainUrl: 'https://testnet-api.ainetwork.ai',
+});
 
 const ainftObjectId = '0x6c4605D7a3abAd19f9BbA986746aDF9fFCBE6f9A';
 const tokenId = '1';
 const metadata = {
 	name: 'my first token',
-	image: '<https://miro.medium.com/v2/resize:fit:2400/1*GWMy0ibykACFKS_rRxFlcw.png>'
+	image: 'https://miro.medium.com/v2/resize:fit:2400/1*GWMy0ibykACFKS_rRxFlcw.png'
 }
 
 const main = async () => {
