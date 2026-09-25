@@ -17,7 +17,6 @@ The roles are:
 * Scholars: ​💻​👨‍💻​ 👩🏻‍🎓 It's all about the Algorithm! Scholars are developers and researchers of open-source AI-related projects (formerly known as Ainizers) and blockchain developers.
 * Citizens: 🚶🚶🏾‍♀️🌎 Just passing by! Citizens are non-members who are not skilled enough to take a role but are interested in learning or getting to know more about AIN DAO. Since Citizens are non-members, they will always be considered to be Level 0.
 
-> If you're interested in joining AIN DAO, please fill out this [form](https://docs.google.com/forms/d/1byA4y83zjZ_AICnoDWnRNHzHNgK6PFuyJpwKtyj_0Vs)!
 
 ## Roadmap
 

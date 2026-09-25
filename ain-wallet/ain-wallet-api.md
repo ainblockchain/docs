@@ -31,7 +31,7 @@ Returns the address of the currently active account.
 </strong><strong>window.ainetwork.getAccount(): Promise&#x3C;Account>
 </strong></code></pre>
 
-Returns the address of the currently active account.
+Returns the name and address of the currently active account.
 
 #### window.ainetwork.getNetwork()
 
@@ -40,10 +40,10 @@ Returns the address of the currently active account.
 </strong><strong>  name: string
 </strong><strong>}
 </strong><strong>
-</strong><strong>window.ainetwork.getAccount(): Promise&#x3C;Network>
+</strong><strong>window.ainetwork.getNetwork(): Promise&#x3C;Network>
 </strong></code></pre>
 
-Returns the address of the currently active account.
+Returns the selected network name and chain ID. Mainnet application transactions use 1; Testnet uses 0.
 
 #### window.ainetwork.getBalance()
 
