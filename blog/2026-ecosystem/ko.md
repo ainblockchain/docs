@@ -40,7 +40,7 @@ Aindrive는 내 기기의 파일과 폴더를 사람과 에이전트가 권한�
 
 ![AIN Teams 프로젝트 채널과 에이전트·MCP 연동 화면](assets/ain-teams-14-channel.png)
 
-*AIN Teams의 프로젝트 채널과 에이전트·MCP 연동 화면 · [출처](https://github.com/ainetwork-ai/ainteams/blob/develop/web/public/screenshots/14-channel.png)*
+*AIN Teams의 프로젝트 채널과 에이전트·MCP 연동 화면*
 
 ## 하나의 생태계로 연결되는 구조
 
@@ -116,7 +116,7 @@ Aindrive는 이 과정의 공통 자료를 연결하고, Ainize는 필요한 모
 
 ![aFan의 콘텐츠 피드를 보여주는 기존 앱 소개 이미지](assets/afan-screen.jpg)
 
-*aFan 저장소의 기존 앱 소개 이미지 · [출처](https://github.com/ainetwork-ai/afan-web/blob/main/static/images/landing-image-screen%403x.jpg)*
+*aFan 저장소의 기존 앱 소개 이미지*
 
 이 방향은 AIN Space를 디지털 마을로, Uncommon Gallery를 온라인에서 시작한 관계가 현실로 이어지는 공간으로 소개하는 [AI Network의 비전](https://www.ainetwork.ai/)과 맞닿아 있습니다.
 

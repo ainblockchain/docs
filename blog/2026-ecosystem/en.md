@@ -38,7 +38,7 @@ Aindrive lets people and agents work with files and folders on your devices acco
 
 ![AIN Teams project channel with agent and MCP integrations](assets/ain-teams-14-channel.png)
 
-*AIN Teams project channel with agent and MCP integrations. [Source](https://github.com/ainetwork-ai/ainteams/blob/develop/web/public/screenshots/14-channel.png)*
+*AIN Teams project channel with agent and MCP integrations*
 
 ## How the Ecosystem Fits Together
 
@@ -114,7 +114,7 @@ For the exhibition example, the flow is to **request research through A2A, read 
 
 ![Existing aFan app promotional image showing its content feed](assets/afan-screen.jpg)
 
-*Existing app promotional image from the aFan repository. [Source](https://github.com/ainetwork-ai/afan-web/blob/main/static/images/landing-image-screen%403x.jpg)*
+*Existing app promotional image from the aFan repository*
 
 This direction reflects [AI Network's vision](https://www.ainetwork.ai/): AIN Space as a digital village, and Uncommon Gallery as a physical place where relationships that begin online continue in the real world.
 
