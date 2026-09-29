@@ -83,3 +83,9 @@
 
 * [AIN Improvement Memos (AIMs)](proposal-documents/ain-improvement-memos.md)
 * [AIN Improvement Proposals (AIPs)](proposal-documents/ain-improvement-proposals.md)
+
+## Ecosystem Updates
+
+* [AI Network 2026 Ecosystem](blog/2026-ecosystem/README.md)
+  * [한국어 — 사람과 AI가 함께 살아가는 생태계](blog/2026-ecosystem/ko.md)
+  * [English — An Ecosystem Where People and AI Grow Together](blog/2026-ecosystem/en.md)
