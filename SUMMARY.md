@@ -60,6 +60,7 @@
 ## AI Agents
 
 * [AINFT](ai-agents/ainft.md)
+* [AINFT agents with Ainize](ai-agents/ainft-agents.md)
 * [AINFT Factory](ai-agents/ainft-factory.md)
 * [AINFT Projects](ai-agents/ainft-projects/README.md)
   * [🍳 MiniEggs](ai-agents/ainft-projects/minieggs.md)
