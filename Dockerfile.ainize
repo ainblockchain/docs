@@ -1,0 +1,58 @@
+# ainize build for the GitBook docs: render every Markdown page to static HTML
+# (SUMMARY.md becomes the sidebar), fail the build if SUMMARY.md links a page
+# that does not exist, then serve the result with busybox httpd on $PORT.
+FROM node:20-alpine AS build
+WORKDIR /render
+RUN npm init -y >/dev/null && npm install --no-audit --no-fund marked@12.0.2
+COPY . /src
+COPY <<'EOF' /render/render.mjs
+import { marked } from 'marked';
+import fs from 'node:fs';
+import path from 'node:path';
+const SRC = '/src', OUT = '/site';
+const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => {
+  const p = path.join(d, e.name);
+  if (e.name === '.git' || e.name === 'node_modules') return [];
+  return e.isDirectory() ? walk(p) : [p];
+});
+const rel = (p) => path.relative(SRC, p);
+const toHtml = (r) => r.replace(/(^|\/)README\.md$/i, '$1index.html').replace(/\.md$/i, '.html');
+const fixLinks = (html) => html.replace(/href="(?!https?:|mailto:|#)([^"]*?)\.md(#[^"]*)?"/g, (m, p, h) =>
+  `href="${p.replace(/(^|\/)README$/i, '$1index')}.html${h || ''}"`);
+const files = walk(SRC);
+let nav = '';
+const missing = [];
+if (fs.existsSync(path.join(SRC, 'SUMMARY.md'))) {
+  const summary = fs.readFileSync(path.join(SRC, 'SUMMARY.md'), 'utf8');
+  for (const m of summary.matchAll(/\]\(([^)#]+\.md)/g)) {
+    if (!fs.existsSync(path.join(SRC, decodeURI(m[1])))) missing.push(m[1]);
+  }
+  nav = fixLinks(marked.parse(summary.replace(/^# .*$/m, '')));
+}
+if (missing.length) { console.error('SUMMARY.md links missing pages:\n' + missing.join('\n')); process.exit(1); }
+let pages = 0;
+for (const f of files) {
+  const r = rel(f), dest = path.join(OUT, r.endsWith('.md') ? toHtml(r) : r);
+  fs.mkdirSync(path.dirname(dest), { recursive: true });
+  if (!r.endsWith('.md')) { fs.copyFileSync(f, dest); continue; }
+  const depth = r.split('/').length - 1, up = '../'.repeat(depth);
+  const body = fixLinks(marked.parse(fs.readFileSync(f, 'utf8').replace(/^---\n[\s\S]*?\n---\n/, '')));
+  const sidebar = nav.replace(/href="(?!https?:|mailto:|#)/g, `href="${up}`);
+  const title = (body.match(/<h1[^>]*>(.*?)<\/h1>/) || [, r])[1].replace(/<[^>]+>/g, '');
+  fs.writeFileSync(dest, `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title>
+<style>body{margin:0;font:16px/1.6 system-ui,sans-serif;display:flex;color:#1f2328}nav{width:300px;flex:none;padding:16px;border-right:1px solid #ddd;height:100vh;overflow:auto;position:sticky;top:0;font-size:14px}nav ul{padding-left:16px}main{padding:24px 32px;max-width:900px;min-width:0}pre{background:#f6f8fa;padding:12px;overflow:auto}img{max-width:100%}table{border-collapse:collapse}td,th{border:1px solid #ddd;padding:4px 8px}@media(max-width:800px){body{display:block}nav{width:auto;height:auto;position:static;border:0}}</style>
+</head><body>${nav ? `<nav>${sidebar}</nav>` : ''}<main>${body}</main></body></html>`);
+  pages++;
+}
+if (!fs.existsSync(path.join(OUT, 'index.html'))) { console.error('no README.md at the root'); process.exit(1); }
+fs.writeFileSync(path.join(OUT, 'health'), 'ok\n');
+console.log(`rendered ${pages} pages`);
+EOF
+RUN node /render/render.mjs
+
+FROM busybox:1.36
+COPY --from=build /site /site
+USER nobody
+ENV PORT=8080
+EXPOSE 8080
+CMD ["sh", "-c", "exec httpd -f -v -p 0.0.0.0:${PORT} -h /site"]
